@@ -13,9 +13,24 @@ while True:
         else:
             print("that is not a valid option")
     if choice == 'add':
-        name = input("Enter item name: ")
-        price = float(input("Enter item price: "))
-        quantity = int(input("Enter item quantity: "))
+        name = input("Enter item name: ").lower().strip()
+
+        while True:
+            price = input("\nEnter the items price: ")
+            try:
+                price = float(price)
+            except:
+                print("please enter a valid value")
+            else:
+                break
+        while True:
+            quantity = input("Enter item quantity: ")
+            try:
+                quantity = int(quantity)
+            except:
+                print("please enter a valid value")
+            else:
+                break
         item = {'name': name, 'price': price}
         found = 0
         for cart_item in cart:
@@ -28,10 +43,17 @@ while True:
         print(f"{quantity} {name}(s) added to the cart.")
     elif choice == 'remove':
         name = input("Enter item name to remove: ")
-        quantity = int(input("Enter quantity to remove: "))
-        item = {'name': name, 'price': 0}  # Price doesn't matter for removal
+
+        while True:
+            quantity = input("Enter quantity to remove: ")
+            try:
+                quantity = int(quantity)
+            except:
+                print("please enter a valid value")
+            else:
+                break
         for cart_item in cart:
-            if cart_item['item']['name'] == item['name']:
+            if cart_item['item']['name'] == name:
                 if cart_item['quantity'] > quantity:
                     cart_item['quantity'] -= quantity
                     break
@@ -39,6 +61,7 @@ while True:
                     cart.remove(cart_item)
                     break
         print(f"{quantity} {name}(s) removed from the cart.")
+    
     elif choice == 'view':
         print("Shopping Cart:")
         for cart_item in cart:
